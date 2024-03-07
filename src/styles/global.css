@@ -5,10 +5,9 @@ html {
 
 .cf-logo {
   display: table-cell;
-  background-image: url("img/cf-logo.svg");
   width: 1.8rem;
   height: 1.8rem;
-  background-image: url(img/cf-logo.svg);
+  background-image: url("/src/img/cf-logo.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -19,7 +18,7 @@ html {
   display: table-cell;
   width: 1.6rem;
   height: 1.6rem;
-  background-image: url("img/modrinth-logo.svg");
+  background-image: url("/src/img/modrinth-logo.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
