@@ -11,7 +11,7 @@ interface Props {
   curseforgelink: string;
 }
 
-const { imagePath, altText, name, modrinthlink, curseforgelink, version } =
+const { imagePath, altText, name, modrinthlink, curseforgelink, version} =
   Astro.props;
 ---
 
@@ -38,7 +38,7 @@ const { imagePath, altText, name, modrinthlink, curseforgelink, version } =
         <a
           class="text-sm text-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
           href={modrinthlink}
-          target="_blank"
+          
           ><span>
             <i class="md-logo w-4 h-4 me-2 ms-1" aria-hidden="true"></i>
           </span> Modrinth 下載</a
@@ -46,7 +46,7 @@ const { imagePath, altText, name, modrinthlink, curseforgelink, version } =
         <a
           class="text-sm text-center focus:outline-none text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:ring-orange-600 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
           href={curseforgelink}
-          target="_blank"
+          
         >
           <span
             ><i class="cf-logo w-4 h-4 me-2 ms-1" aria-hidden="true"></i>
