@@ -15,15 +15,14 @@ const { imagePath, altText, name, modrinthlink, curseforgelink, version } =
   Astro.props;
 ---
 
-<div class="py-2 mx-auto max-w-screen-xl sm:py-2 ">
+<div>
   <div
-    class="hover:dark:border-gray-500 hover:dark:bg-gray-700 hover:grow  flex flex-row items-center bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700 dark:bg-gray-800"
+    class="m-3 flex flex-row items-center bg-white border border-gray-200 rounded-lg shadow max-sm:flex-col hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
   >
     <img
-      class="object-cover rounded-lg md:rounded-lg my-5 mx-5"
+      class="m-3 object-cover rounded-lg h-40 md:rounded max-sm:w-40 max-sm:h-40"
       src={imagePath}
       alt=""
-      width="150"
     />
     <div class="flex flex-col justify-between p-4 leading-normal">
       <h5
@@ -31,13 +30,11 @@ const { imagePath, altText, name, modrinthlink, curseforgelink, version } =
       >
         {name}
       </h5>
-      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-        {altText}
-      </p>
+      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{altText}</p>
       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
         版本 : {version}
       </p>
-      <div class="flex flex-row px-2 leading-normal">
+      <div class="flex flex-auto">
         <a
           class="text-sm text-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
           href={modrinthlink}
@@ -52,9 +49,8 @@ const { imagePath, altText, name, modrinthlink, curseforgelink, version } =
           target="_blank"
         >
           <span
-            ><i class="cf-logo w-4 h-4 me-2 ms-1" aria-hidden="true"
-            ></i>
-            </span> Curseforge 下載</a
+            ><i class="cf-logo w-4 h-4 me-2 ms-1" aria-hidden="true"></i>
+          </span> Curseforge 下載</a
         >
       </div>
     </div>
