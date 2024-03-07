@@ -1,0 +1,62 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+interface Props {
+  imagePath: string;
+  altText: string;
+  name: string;
+  version: string;
+  modrinthlink: string;
+  curseforgelink: string;
+}
+
+const { imagePath, altText, name, modrinthlink, curseforgelink, version } =
+  Astro.props;
+---
+
+<div class="py-2 mx-auto max-w-screen-xl sm:py-2">
+  <div
+    class="relative flex flex-row items-center bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700 dark:bg-gray-800"
+  >
+    <img
+      class="object-cover rounded-lg md:rounded-lg my-5 mx-5"
+      src={imagePath}
+      alt=""
+      width="150"
+    />
+    <div class="flex flex-col justify-between p-4 leading-normal">
+      <h5
+        class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+      >
+        {name}
+      </h5>
+      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+        {altText}
+      </p>
+      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+        版本 : {version}
+      </p>
+      <div class="flex flex-row p-4 leading-normal">
+        <a
+          class="text-sm text-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          href={modrinthlink}
+          target="_blank"
+          ><span>
+            <i class="md-logo w-4 h-4 me-2 ms-1" aria-hidden="true"></i>
+          </span> Modrinth 下載</a
+        >
+        <a
+          class="text-sm text-center focus:outline-none text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:ring-orange-600 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+          href={curseforgelink}
+          target="_blank"
+        >
+          <span
+            ><i class="cf-logo w-4 h-4 me-2 ms-1" aria-hidden="true"
+            ></i>
+            </span> Curseforge 下載</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
