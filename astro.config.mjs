@@ -7,5 +7,8 @@ import preact from "@astrojs/preact";
 export default defineConfig({
   site: "https://yichifauzi.github.io",
   base: "/DBOP-Installtutorial",
-  integrations: [tailwind(), react(),preact()]
+  integrations: [tailwind(), react(), preact()],
+  prefetch: {
+    prefetchAll: true,
+  },
 });
