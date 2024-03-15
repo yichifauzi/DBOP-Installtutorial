@@ -1,7 +1,4 @@
 ---
-import type { ImageMetadata } from "astro";
-import { Image } from "astro:assets";
-
 interface Props {
   imagePath: string;
   altText: string;
@@ -11,8 +8,10 @@ interface Props {
   curseforgelink: string;
 }
 
-const { imagePath, altText, name, modrinthlink, curseforgelink, version} =
+const { imagePath, altText, name, modrinthlink, curseforgelink, version } =
   Astro.props;
+const isModrinthLinkValid = modrinthlink !== "";
+const isCurseforgeLinkValid = curseforgelink !== "";
 ---
 
 <div>
@@ -35,23 +34,54 @@ const { imagePath, altText, name, modrinthlink, curseforgelink, version} =
         版本 : {version}
       </p>
       <div class="flex flex-auto">
-        <a
-          class="text-sm text-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-          href={modrinthlink}
-          
-          ><span>
-            <i class="md-logo w-4 h-4 me-2 ms-1" aria-hidden="true"></i>
-          </span> Modrinth 下載</a
-        >
-        <a
-          class="text-sm text-center focus:outline-none text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:ring-orange-600 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
-          href={curseforgelink}
-          
-        >
-          <span
-            ><i class="cf-logo w-4 h-4 me-2 ms-1" aria-hidden="true"></i>
-          </span> Curseforge 下載</a
-        >
+        {
+          isModrinthLinkValid ? (
+            <a
+              class="text-sm text-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+              href={modrinthlink}
+            >
+              <span>
+                <i class="md-logo w-4 h-4 me-2 ms-1" aria-hidden="true" />
+              </span>
+              Modrinth 下載
+            </a>
+          ) : (
+            <>
+              <button
+                class="opacity-50 text-sm text-center focus:outline-none text-white bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:bg-green-800 dark:focus:ring-green-800 cursor-not-allowed"
+                disabled
+              >
+              <span>
+                <i class="md-logo w-4 h-4 me-2 ms-1" aria-hidden="true" />
+              </span>
+              <a class="text-sm text-center">Modrinth 下載</a>
+              </button>
+            </>
+          )
+        }
+        {
+          isCurseforgeLinkValid ? (
+            <a
+              class="text-sm text-center focus:outline-none text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:ring-orange-600 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+              href={curseforgelink}
+            >
+              <span>
+                <i class="cf-logo w-4 h-4 me-2 ms-1" aria-hidden="true" />
+              </span>
+              Curseforge 下載
+            </a>
+          ) : (
+          <button
+                class="opacity-50 text-sm text-center focus:outline-none text-white bg-orange-800 focus:ring-4 focus:ring-orange-600 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900 cursor-not-allowed"
+                disabled
+              >
+              <span>
+                <i class="cf-logo w-4 h-4 me-2 ms-1" aria-hidden="true" />
+              </span>
+              <a class="text-sm text-center">Curseforge 下載</a>
+              </button>
+          )
+        }
       </div>
     </div>
   </div>
