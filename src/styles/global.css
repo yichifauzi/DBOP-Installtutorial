@@ -3,6 +3,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.dark {
+  transition: 0.5s !important;
+}
+
 .cf-logo {
   display: table-cell;
   width: 1.8rem;

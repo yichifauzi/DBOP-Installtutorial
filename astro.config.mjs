@@ -19,7 +19,7 @@ if (isBuild) {
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://yichifauzi.github.io",
+  site: "https://yichifauzi.github.io/DBOP-Installtutorial",
   base: "/DBOP-Installtutorial",
   integrations: [tailwind(), react(), sitemap()],
   prefetch: {
