@@ -16,20 +16,31 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link
       rel="icon"
-      type="image/svg+xml"
-      href="https://raw.githubusercontent.com/yichifauzi/DBOP-Installtutorial/475f31d13ca57caac8b375ea3c9dc41648ca27c6/src/favicon.svg"
+      type="image"
+      href="https://raw.githubusercontent.com/yichifauzi/DBOP-Installtutorial/master/public/img/logo.webp"
     />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <link
       rel="preload"
       as="image"
-      href="https://github.com/yichifauzi/DBOP/blob/main/DBOP%20banner.png?raw=true"
+      href="https://github.com/yichifauzi/DBOP/blob/main/banner.png?raw=true"
     />
     <meta content="#874c50" data-react-helmet="true" name="theme-color" />
     <meta
       content="https://raw.githubusercontent.com/yichifauzi/DBOP-Installtutorial/475f31d13ca57caac8b375ea3c9dc41648ca27c6/src/favicon.svg"
     />
+    <script>
+      if (
+        localStorage.getItem("color-theme") === "dark" ||
+        (!("color-theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
   </head>
   <body class="dark:bg-gray-900">
     <slot />
@@ -39,21 +50,4 @@ const { title } = Astro.props;
   is:inline
   src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"
 ></script>
-<script is:inline>
-  const theme = (() => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme");
-    }
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-    return "light";
-  })();
-
-  if (theme === "light") {
-    document.documentElement.classList.remove("dark");
-  } else {
-    document.documentElement.classList.add("dark");
-  }
-  window.localStorage.setItem("theme", theme);
-</script>
+<script is:inline src="/script/themeToggle.js"></script>
