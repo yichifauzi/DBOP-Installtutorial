@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://<YOUR SITE>/sitemap-index.xml
+Sitemap: https://https://yichifauzi.github.io/DBOP-Installtutorial/sitemap-index.xml
