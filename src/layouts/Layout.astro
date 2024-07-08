@@ -1,5 +1,4 @@
 ---
-
 export interface Props {
   title: string;
 }
@@ -12,7 +11,7 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta
       name="description"
-      content="DBOP是一個基於 fabric模組平台的一個優化包 大部分模組都是客戶端的 並且能夠優化Minecraft麥塊 這是DBOP模組包安裝教學網站"
+      content="DBOP是一個基於 Fabric 模組平台的一個優化包 大部分模組都是用戶端的 並且能夠優化Minecraft麥塊 這是DBOP模組包安裝教學網站"
     />
     <meta name="viewport" content="width=device-width" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -36,6 +35,9 @@ const { title } = Astro.props;
   </head>
   <body class="dark:bg-gray-900">
     <slot />
-    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
+    <script
+      is:inline
+      src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"
+    ></script>
   </body>
 </html>
