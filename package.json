@@ -19,7 +19,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.2.21",
     "astro": "^4.15.4",
-    "astro-imagetools": "^0.9.0",
+    "astro-imagetools": "^0.2.7",
     "flowbite": "^2.3.0",
     "preact": "^10.19.6",
     "react": "^18.2.0",
