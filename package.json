@@ -18,8 +18,9 @@
     "@heroicons/react": "^2.1.1",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.2.21",
-    "astro": "^4.15.4",
+    "astro": "^4.15.8",
     "astro-imagetools": "^0.2.7",
+    "dbop-installtutorial": "file:",
     "flowbite": "^2.3.0",
     "preact": "^10.19.6",
     "react": "^18.2.0",
@@ -28,6 +29,6 @@
     "typescript": "^5.4.2"
   },
   "devDependencies": {
-    "@astrojs/tailwind": "^5.1.0"
+    "@astrojs/tailwind": "^5.1.1"
   }
 }
