@@ -1,15 +1,63 @@
 ---
 interface Props {
-  imagePath: string;
-  altText: string;
+  modrinthId: string;
   name: string;
-  version: string;
-  modrinthlink: string;
-  curseforgelink: string;
+  altText: string;
+  modrinthlink?: string;
+  curseforgelink?: string;
+  curseforgeId?: string;
+  imageUrl?: string;
+  fallbackVersion?: string;
 }
 
-const { imagePath, altText, name, modrinthlink, curseforgelink, version } =
-  Astro.props;
+const {
+  modrinthId,
+  name,
+  altText,
+  modrinthlink,
+  curseforgelink,
+  curseforgeId,
+  imageUrl,
+  fallbackVersion,
+} = Astro.props;
+
+let version = fallbackVersion || "Unknown";
+let gameVersions = [];
+let imagePath = imageUrl || "/placeholder-image.jpg";
+
+if (modrinthId) {
+  try {
+    const projectData = await fetch(
+      `https://api.modrinth.com/v2/project/${modrinthId}`
+    ).then((res) => res.json());
+    const versionData = await fetch(
+      `https://api.modrinth.com/v2/project/${modrinthId}/version`
+    ).then((res) => res.json());
+
+    version = versionData[0].version_number;
+    gameVersions = versionData[0].game_versions;
+    imagePath = projectData.icon_url;
+  } catch (error) {
+    console.error("Error fetching data from Modrinth API:", error);
+  }
+} else if (curseforgeId) {
+  try {
+    const projectData = await fetch(
+      `https://api.curseforge.com/v1/mods/${curseforgeId}`,
+      {
+        headers: {
+          "x-api-key": import.meta.env.CURSEFORGE_API_KEY,
+        },
+      }
+    ).then((res) => res.json());
+
+    version = projectData.data.latestFiles[0].displayName;
+    imagePath = projectData.data.attachments[0].thumbnailUrl;
+  } catch (error) {
+    console.error("Error fetching data from CurseForge API:", error);
+  }
+}
+
 const isModrinthLinkValid = modrinthlink !== "";
 const isCurseforgeLinkValid = curseforgelink !== "";
 ---
@@ -21,7 +69,7 @@ const isCurseforgeLinkValid = curseforgelink !== "";
     <img
       class="m-3 object-cover rounded-lg h-40 md:rounded max-sm:w-40 max-sm:h-40 drop-shadow-lg"
       src={imagePath}
-      alt=""
+      alt={altText}
     />
     <div class="flex flex-col justify-between p-4 leading-normal">
       <h5
@@ -32,6 +80,7 @@ const isCurseforgeLinkValid = curseforgelink !== "";
       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{altText}</p>
       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
         版本 : {version}
+        {gameVersions.length > 0 ? `(適用於: ${gameVersions.join(", ")})` : ""}
       </p>
       <div class="flex flex-auto">
         {
@@ -51,10 +100,10 @@ const isCurseforgeLinkValid = curseforgelink !== "";
                 class="opacity-50 text-sm text-center focus:outline-none text-white bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:bg-green-800 dark:focus:ring-green-800 cursor-not-allowed"
                 disabled
               >
-              <span>
-                <i class="md-logo w-4 h-4 me-2 ms-1" aria-hidden="true" />
-              </span>
-              <a class="text-sm text-center">Modrinth 下載</a>
+                <span>
+                  <i class="md-logo w-4 h-4 me-2 ms-1" aria-hidden="true" />
+                </span>
+                <a class="text-sm text-center">Modrinth 下載</a>
               </button>
             </>
           )
@@ -71,15 +120,15 @@ const isCurseforgeLinkValid = curseforgelink !== "";
               Curseforge 下載
             </a>
           ) : (
-          <button
-                class="opacity-50 text-sm text-center focus:outline-none text-white bg-orange-800 focus:ring-4 focus:ring-orange-600 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900 cursor-not-allowed"
-                disabled
-              >
+            <button
+              class="opacity-50 text-sm text-center focus:outline-none text-white bg-orange-800 focus:ring-4 focus:ring-orange-600 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900 cursor-not-allowed"
+              disabled
+            >
               <span>
                 <i class="cf-logo w-4 h-4 me-2 ms-1" aria-hidden="true" />
               </span>
               <a class="text-sm text-center">Curseforge 下載</a>
-              </button>
+            </button>
           )
         }
       </div>
