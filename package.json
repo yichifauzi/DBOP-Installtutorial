@@ -13,7 +13,7 @@
     "@astrojs/check": "^0.9.3",
     "@astrojs/preact": "^3.5.3",
     "@astrojs/react": "^3.6.2",
-    "@astrojs/sitemap": "^3.1.6",
+    "@astrojs/sitemap": "^3.2.1",
     "@headlessui/react": "^2.1.8",
     "@heroicons/react": "^2.1.5",
     "@types/react": "^18.3.12",
