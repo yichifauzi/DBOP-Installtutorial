@@ -22,7 +22,7 @@
     "astro-imagetools": "^0.9.0",
     "dbop-installtutorial": "file:",
     "flowbite": "^2.5.2",
-    "preact": "^10.25.1",
+    "preact": "^10.25.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwindcss": "^3.4.16",
