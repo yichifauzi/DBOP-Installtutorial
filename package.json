@@ -12,7 +12,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/preact": "^4.0.0",
-    "@astrojs/react": "^4.1.1",
+    "@astrojs/react": "^4.1.2",
     "@astrojs/sitemap": "^3.2.1",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
