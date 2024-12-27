@@ -3,6 +3,8 @@ import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 
+import mdx from "@astrojs/mdx";
+
 const SERVER_PORT = 3000;
 // the url to access your blog during local development
 const LOCALHOST_URL = `http://localhost:${SERVER_PORT}`;
@@ -21,7 +23,7 @@ if (isBuild) {
 export default defineConfig({
   site: "https://yichifauzi.github.io/DBOP-Installtutorial",
   base: "/DBOP-Installtutorial",
-  integrations: [tailwind(), react(), sitemap()],
+  integrations: [tailwind(), react(), sitemap(), mdx()],
   prefetch: {
     prefetchAll: true
   }
