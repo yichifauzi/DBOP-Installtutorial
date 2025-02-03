@@ -30,6 +30,6 @@
     "typescript": "^5.7.2"
   },
   "devDependencies": {
-    "@astrojs/tailwind": "^5.1.5"
+    "@astrojs/tailwind": "^6.0.0"
   }
 }
