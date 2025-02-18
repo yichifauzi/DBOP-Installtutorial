@@ -1,5 +1,5 @@
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 
@@ -23,7 +23,10 @@ if (isBuild) {
 export default defineConfig({
   site: "https://yichifauzi.github.io/DBOP-Installtutorial",
   base: "/DBOP-Installtutorial",
-  integrations: [tailwind(), react(), sitemap(), mdx()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
+  integrations: [react(), sitemap(), mdx()],
   prefetch: {
     prefetchAll: true
   }
