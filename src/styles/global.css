@@ -12,6 +12,8 @@ html {
   background-repeat: no-repeat;
   background-position: center;
   padding: 0.5rem;
+  width: 1.4rem;
+  height: 1.4rem;
 }
 
 .md-logo {
@@ -21,4 +23,6 @@ html {
   background-repeat: no-repeat;
   background-position: center;
   padding: 0.5rem;
+  width: 1.4rem;
+  height: 1.4rem;
 }
