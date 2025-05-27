@@ -44,7 +44,7 @@ if (Astro.site) {
     }
   } else if (curseforgeId) {
     try {
-      const apiKey = process.env.CURSEFORGE_API_KEY;
+      const apiKey = import.meta.env.CURSEFORGE_API_KEY;
       if (apiKey) {
         const projectData = await fetch(
           `https://api.curseforge.com/v1/mods/${curseforgeId}`,
