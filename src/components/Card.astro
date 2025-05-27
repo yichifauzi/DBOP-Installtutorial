@@ -25,36 +25,42 @@ let version = fallbackVersion || "Unknown";
 let gameVersions: string[] = [];
 let imagePath = imageUrl || "/placeholder-image.jpg";
 
-if (modrinthId) {
-  try {
-    const projectData = await fetch(
-      `https://api.modrinth.com/v2/project/${modrinthId}`
-    ).then((res) => res.json());
-    const versionData = await fetch(
-      `https://api.modrinth.com/v2/project/${modrinthId}/version`
-    ).then((res) => res.json());
+if (Astro.site) {
+  // Running at build time (static generation)
+  if (modrinthId) {
+    try {
+      const projectData = await fetch(
+        `https://api.modrinth.com/v2/project/${modrinthId}`
+      ).then((res) => res.json());
+      const versionData = await fetch(
+        `https://api.modrinth.com/v2/project/${modrinthId}/version`
+      ).then((res) => res.json());
 
-    version = versionData?.[0]?.version_number || version;
-    gameVersions = versionData?.[0]?.game_versions || [];
-    imagePath = projectData?.icon_url || imagePath;
-  } catch (error) {
-    console.error("Error fetching data from Modrinth API:", error);
-  }
-} else if (curseforgeId) {
-  try {
-    const projectData = await fetch(
-      `https://api.curseforge.com/v1/mods/${curseforgeId}`,
-      {
-        headers: {
-          "x-api-key": import.meta.env.CURSEFORGE_API_KEY,
-        },
+      version = versionData?.[0]?.version_number || version;
+      gameVersions = versionData?.[0]?.game_versions || [];
+      imagePath = projectData?.icon_url || imagePath;
+    } catch (error) {
+      console.error("Error fetching data from Modrinth API:", error);
+    }
+  } else if (curseforgeId) {
+    try {
+      const apiKey = import.meta.env.CURSEFORGE_API_KEY;
+      if (apiKey) {
+        const projectData = await fetch(
+          `https://api.curseforge.com/v1/mods/${curseforgeId}`,
+          {
+            headers: {
+              "x-api-key": apiKey,
+            },
+          }
+        ).then((res) => res.json());
+
+        version = projectData?.data?.latestFiles?.[0]?.displayName || version;
+        imagePath = projectData?.data?.attachments?.[0]?.thumbnailUrl || imagePath;
       }
-    ).then((res) => res.json());
-
-    version = projectData?.data?.latestFiles?.[0]?.displayName || version;
-    imagePath = projectData?.data?.attachments?.[0]?.thumbnailUrl || imagePath;
-  } catch (error) {
-    console.error("Error fetching data from CurseForge API:", error);
+    } catch (error) {
+      console.error("Error fetching data from CurseForge API:", error);
+    }
   }
 }
 
