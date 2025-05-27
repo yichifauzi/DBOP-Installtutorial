@@ -7,22 +7,22 @@ html {
 
 .cf-logo {
   display: table-cell;
-  width: 1.8rem;
-  height: 1.8rem;
   background-image: url("/src/img/cf-logo.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  padding: 0.6rem;
+  padding: 0.5rem;
+  width: 1.4rem;
+  height: 1.4rem;
 }
 
 .md-logo {
   display: table-cell;
-  width: 1.6rem;
-  height: 1.6rem;
   background-image: url("/src/img/modrinth-logo.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   padding: 0.5rem;
+  width: 1.4rem;
+  height: 1.4rem;
 }

@@ -22,7 +22,7 @@ const {
 } = Astro.props;
 
 let version = fallbackVersion || "Unknown";
-let gameVersions = [];
+let gameVersions: string[] = [];
 let imagePath = imageUrl || "/placeholder-image.jpg";
 
 if (modrinthId) {
@@ -34,9 +34,9 @@ if (modrinthId) {
       `https://api.modrinth.com/v2/project/${modrinthId}/version`
     ).then((res) => res.json());
 
-    version = versionData[0].version_number;
-    gameVersions = versionData[0].game_versions;
-    imagePath = projectData.icon_url;
+    version = versionData?.[0]?.version_number || version;
+    gameVersions = versionData?.[0]?.game_versions || [];
+    imagePath = projectData?.icon_url || imagePath;
   } catch (error) {
     console.error("Error fetching data from Modrinth API:", error);
   }
@@ -51,87 +51,57 @@ if (modrinthId) {
       }
     ).then((res) => res.json());
 
-    version = projectData.data.latestFiles[0].displayName;
-    imagePath = projectData.data.attachments[0].thumbnailUrl;
+    version = projectData?.data?.latestFiles?.[0]?.displayName || version;
+    imagePath = projectData?.data?.attachments?.[0]?.thumbnailUrl || imagePath;
   } catch (error) {
     console.error("Error fetching data from CurseForge API:", error);
   }
 }
 
-const isModrinthLinkValid = modrinthlink !== "";
-const isCurseforgeLinkValid = curseforgelink !== "";
+const isModrinthLinkValid = !!modrinthlink;
+const isCurseforgeLinkValid = !!curseforgelink;
 ---
 
-<div>
-  <div
-    class="m-3 flex flex-row items-center bg-white border border-zinc-200 rounded-lg shadow max-sm:flex-col hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700"
-  >
-    <img
-      class="m-3 object-cover rounded-lg h-40 md:rounded max-sm:w-40 max-sm:h-40 drop-shadow-lg"
-      src={imagePath}
-      alt={altText}
-    />
-    <div class="flex flex-col justify-between p-4 leading-normal">
-      <h5
-        class="mb-2 text-2xl font-bold tracking-tight text-zinc-900 dark:text-white"
+<div class="m-3 flex flex-row items-center bg-white border border-zinc-200 rounded-lg shadow max-sm:flex-col hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700">
+  <img
+    class="m-3 object-cover rounded-lg h-40 md:rounded max-sm:w-40 max-sm:h-40 drop-shadow-lg"
+    src={imagePath}
+    alt={altText || `${name} 圖片`}
+    loading="lazy"
+    onerror="this.onerror=null;this.src='/placeholder-image.jpg';"
+  />
+  <div class="flex flex-col justify-between p-4 leading-normal w-full">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
+      {name}
+    </h5>
+    <p class="mb-3 font-normal text-zinc-700 dark:text-zinc-400">{altText}</p>
+    <p class="mb-3 font-normal text-zinc-700 dark:text-zinc-400">
+      版本 : {version}
+      {gameVersions.length > 0 ? ` (適用於: ${gameVersions.join(", ")})` : ""}
+    </p>
+    <div class="flex flex-auto gap-2">
+      <a
+        class={`text-sm text-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 ${!isModrinthLinkValid ? "opacity-50 pointer-events-none cursor-not-allowed" : ""}`}
+        href={isModrinthLinkValid ? modrinthlink : undefined}
+        aria-disabled={!isModrinthLinkValid}
+        tabindex={isModrinthLinkValid ? 0 : -1}
       >
-        {name}
-      </h5>
-      <p class="mb-3 font-normal text-zinc-700 dark:text-zinc-400">{altText}</p>
-      <p class="mb-3 font-normal text-zinc-700 dark:text-zinc-400">
-        版本 : {version}
-        {gameVersions.length > 0 ? `(適用於: ${gameVersions.join(", ")})` : ""}
-      </p>
-      <div class="flex flex-auto">
-        {
-          isModrinthLinkValid ? (
-            <a
-              class="text-sm text-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-              href={modrinthlink}
-            >
-              <span>
-                <i class="md-logo w-4 h-4 me-2 ms-1" aria-hidden="true" />
-              </span>
-              Modrinth 下載
-            </a>
-          ) : (
-            <>
-              <button
-                class="opacity-50 text-sm text-center focus:outline-none text-white bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:bg-green-800 dark:focus:ring-green-800 cursor-not-allowed"
-                disabled
-              >
-                <span>
-                  <i class="md-logo w-4 h-4 me-2 ms-1" aria-hidden="true" />
-                </span>
-                <a class="text-sm text-center">Modrinth 下載</a>
-              </button>
-            </>
-          )
-        }
-        {
-          isCurseforgeLinkValid ? (
-            <a
-              class="text-sm text-center focus:outline-none text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:ring-orange-600 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
-              href={curseforgelink}
-            >
-              <span>
-                <i class="cf-logo w-4 h-4 me-2 ms-1" aria-hidden="true" />
-              </span>
-              Curseforge 下載
-            </a>
-          ) : (
-            <button
-              class="opacity-50 text-sm text-center focus:outline-none text-white bg-orange-800 focus:ring-4 focus:ring-orange-600 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900 cursor-not-allowed"
-              disabled
-            >
-              <span>
-                <i class="cf-logo w-4 h-4 me-2 ms-1" aria-hidden="true" />
-              </span>
-              <a class="text-sm text-center">Curseforge 下載</a>
-            </button>
-          )
-        }
-      </div>
+        <span>
+          <i class="md-logo w-4 h-4 me-2 ms-1" aria-hidden="true" />
+        </span>
+        Modrinth 下載
+      </a>
+      <a
+        class={`text-sm text-center focus:outline-none text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:ring-orange-600 font-medium rounded-lg px-5 py-2.5 mb-2 dark:focus:ring-yellow-900 ${!isCurseforgeLinkValid ? "opacity-50 pointer-events-none cursor-not-allowed" : ""}`}
+        href={isCurseforgeLinkValid ? curseforgelink : undefined}
+        aria-disabled={!isCurseforgeLinkValid}
+        tabindex={isCurseforgeLinkValid ? 0 : -1}
+      >
+        <span>
+          <i class="cf-logo w-4 h-4 me-2 ms-1" aria-hidden="true" />
+        </span>
+        Curseforge 下載
+      </a>
     </div>
   </div>
 </div>
